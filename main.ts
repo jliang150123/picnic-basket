@@ -1,3 +1,17 @@
+function checkGuess (guess: string) {
+    for (let index = 0; index <= picnicItemNames.length - 1; index++) {
+        if (guess == picnicItemNames[index]) {
+            info.changeScoreBy(1)
+        }
+    }
+    misses = picnicItems.length - info.score()
+}
+let itemSpilled = ""
+let picnicItemNames: string[] = []
+let picnicItems: Image[] = []
+let misses = 0
+misses = 0
+info.setScore(0)
 scene.setBackgroundImage(img`
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
@@ -156,7 +170,7 @@ picnicFood.setImage(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `)
-let picnicItems = [
+picnicItems = [
 img`
     . . . . . . . e c 7 . . . . . . 
     . . . . e e e c 7 7 e e . . . . 
@@ -248,20 +262,20 @@ img`
     . . . . . . c c c c c c b b 4 . 
     `
 ]
-let picnicItemNames = [
-"Apple",
-"Strawberry",
-"Pizza",
-"Donut",
-"Lemon",
-"Strawberries",
-"Lemons",
-"Apples",
-"Donuts",
-"Pizzas"
+picnicItemNames = [
+"apple",
+"strawberry",
+"pizza",
+"donut",
+"lemon",
+"strawberries",
+"lemons",
+"apples",
+"donuts",
+"pizzas"
 ]
-for (let itemSpilled of picnicItems) {
-    picnicFood.setImage(itemSpilled)
+for (let value of picnicItems) {
+    picnicFood.setImage(value)
     pause(400)
 }
 picnicFood.setImage(img`
@@ -282,4 +296,8 @@ picnicFood.setImage(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `)
-let itemSpilled = game.askForString("What was in Yogi's basket?")
+for (let index = 0; index < picnicItems.length; index++) {
+    itemSpilled = game.askForString("What was in Yogi's basket?")
+    checkGuess(itemSpilled)
+}
+picnicFood.sayText("you missed " + misses)
